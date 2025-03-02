@@ -9,11 +9,9 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "types": ["node","multer","express"],
+    "types": ["node", "multer", "express"],
     "resolveJsonModule": true
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["src", "src/index.ts"]
 }
