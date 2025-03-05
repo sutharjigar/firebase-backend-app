@@ -4,14 +4,15 @@ import { bucket, db } from "..";
 
 export const uploadImage = async (req: Request, res: Response): Promise<any> => {
   try {
-    if (!req.file) {
+    if (!req.files) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const file = bucket.file(`uploads/${Date.now()}_${req.file.originalname}`);
+    const imageFile = Array.isArray(req.files.image) ? req.files.image[0] : req.files.image;
+    const file = bucket.file(`uploads/${Date.now()}_${imageFile.name}`);
     const stream = file.createWriteStream({
       metadata: {
-        contentType: req.file.mimetype,
+        contentType: imageFile.mimetype.toString(),
       },
     });
 
@@ -26,7 +27,7 @@ export const uploadImage = async (req: Request, res: Response): Promise<any> => 
       res.status(200).json({ message: "Upload successful", url: fileUrl });
     });
 
-    stream.end(req.file.buffer);
+    stream.end(imageFile.data);
   } catch (error) {
     console.error("Unexpected Error:", error);
     res.status(500).json({ error: "Internal server error" });

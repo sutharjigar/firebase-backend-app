@@ -9,7 +9,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "types": ["node", "multer", "express"],
+    "types": ["node", "express"],
     "resolveJsonModule": true
   },
   "compileOnSave": true,
